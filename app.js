@@ -94,10 +94,25 @@ var app = {
         //console.log(this.player.rotation)
 
         // Calculate player position using sine/cosine of player rotation
-        this.player.x = this.player.x + Math.cos(this.player.rotation) * moveStep;
-        this.player.y = this.player.y + Math.sin(this.player.rotation) * moveStep;
+        let newX = this.player.x + Math.cos(this.player.rotation) * moveStep;
+        let newY = this.player.y + Math.sin(this.player.rotation) * moveStep;
 
-        //console.log(this.player.x, this.player.y);
+        // Check collision before setting new player position
+        if(this.isColliding(newX, newY)) return;
+
+        this.player.x = newX;
+        this.player.y = newY;
+    },
+
+    isColliding(x, y) {
+
+        // Is outside the Level?
+        if(y < 0 || y >= this.mapHeight || x < 0 || x >= this.mapWidth) {
+            return true;
+        }
+
+        // Return if the player is colliding a block (map(y,x) != 0)
+        return (this.map[Math.floor(y)][Math.floor(x)] != 0);
     },
 
     updateMiniMap() {
