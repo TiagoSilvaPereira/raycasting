@@ -332,7 +332,7 @@ var app = {
 
     initScreen() {
         var screen = document.getElementById('screen');
-        console.log(this.screenWidth);
+        
         for (var i=0;i<this.screenWidth;i+=this.stripWidth) {
             var strip = document.createElement('div');
             strip.style.position = 'absolute';
